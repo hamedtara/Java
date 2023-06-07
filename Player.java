@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 
 // Hamed Tara - hamedtara2021@gmail.com -
 
-// You don't have permission copy my code or idea without my permission
+// You don't have permission to copy my code or idea without my permission
 public class Player extends Application {
     private ListView<String> playlistListView;
     private Services services;
