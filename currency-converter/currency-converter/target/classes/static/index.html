@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Currency Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60vh;
+            flex-direction: column;
+        }
+        #amount, #currency {
+            padding: 10px;
+            font-size: 1rem;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #output {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #444;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Currency Converter</h1>
+<div class="container">
+    <label for="amount">Amount in USD:</label>
+    <input type="number" id="amount" name="amount">
+    <select id="currency"></select>
+    <button onclick="convert()">Convert</button>
+    <div id="output"></div>
+</div>
+
+<script>
+
+        $(document).ready(function() {
+            $.getJSON('http://localhost:8080/currencies', function(data) {
+                var select = $('#currency');
+                $.each(data, function(key, value) {
+                    select.append($('<option>').attr('value', value).text(key));
+                });
+            });
+        });
+
+        function convert() {
+            var amount = $('#amount').val();
+            var currency = $('#currency').val();
+            var output = 'Converted amount: ' + (currency * amount).toFixed(2);
+            $('#output').html(output);
+        }
+    </script>
+</body>
+</html>
