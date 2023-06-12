@@ -45,7 +45,6 @@
             color: #444;
         }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <h1>Currency Converter</h1>
@@ -58,22 +57,27 @@
 </div>
 
 <script>
-
-        $(document).ready(function() {
-            $.getJSON('http://localhost:8080/currencies', function(data) {
-                var select = $('#currency');
-                $.each(data, function(key, value) {
-                    select.append($('<option>').attr('value', value).text(key));
-                });
+    window.onload = function() {
+        fetch('http://localhost:8080/currencies')
+            .then(response => response.json())
+            .then(data => {
+                const select = document.querySelector('#currency');
+                for (let key in data) {
+                    let option = document.createElement('option');
+                    option.text = key;
+                    option.value = data[key];
+                    select.add(option);
+                }
             });
-        });
+    };
 
-        function convert() {
-            var amount = $('#amount').val();
-            var currency = $('#currency').val();
-            var output = 'Converted amount: ' + (currency * amount).toFixed(2);
-            $('#output').html(output);
-        }
-    </script>
+    function convert() {
+        const amount = document.querySelector('#amount').value;
+        const currency = document.querySelector('#currency').value;
+        const output = 'Converted amount: ' + (currency * amount).toFixed(2);
+        document.querySelector('#output').innerHTML = output;
+    }
+</script>
+
 </body>
 </html>
