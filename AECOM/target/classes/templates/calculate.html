@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title>Calculation Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            margin: 20px auto;
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<form id="calculationForm" action="#" th:action="@{/calculate}" method="post">
+    <label for="input">Enter a number:</label>
+    <input type="number" name="input" id="input" th:value="${input}" min="0" required>
+    <span id="error" class="error" style="display: none;">Please enter a positive number.</span>
+    <button type="submit">Calculate</button>
+</form>
+
+<p th:text="${result}"></p>
+<script>
+    document.getElementById('calculationForm').addEventListener('submit', function(event) {
+        let input = document.getElementById('input');
+        let error = document.getElementById('error');
+        if (input.value < 0) {
+            event.preventDefault();
+            error.style.display = 'block';
+        } else {
+            error.style.display = 'none';
+        }
+    });
+</script>
+</body>
+</html>
