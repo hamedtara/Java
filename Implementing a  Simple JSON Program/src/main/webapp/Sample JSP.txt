@@ -1,0 +1,53 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+ pageEncoding="ISO-8859-1"%> <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<%@ page import="java.sql.*" %> 
+
+<html>
+ <head>
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <title>JSP- DB interaction</title>
+ </head>
+ <body>
+
+ <%
+
+ // Connect to the server
+ Class.forName("com.mysql.jdbc.Driver");
+ String username="root";
+ String password="Passwored";
+ String url ="jdbc:mysql://localhost:3306/DBName" ;
+ Connection con = DriverManager.getConnection(url, username, password);
+
+
+ // create statement
+ Statement st= con.createStatement();
+
+ // formulate and execute the query
+ String sql = "Select * from TABLE";
+ ResultSet rs = st.executeQuery(sql);
+
+ %>
+
+ <table border="1">
+
+ <% while(rs.next()){ %>
+
+ <tr>
+
+ <td> <%=rs.getString(1) %></td>
+
+ <td> <%=rs.getString(2) %></td>
+
+ <td> <%=rs.getString(3) %></td>
+
+ </tr>
+
+ <% } %>
+
+ </table>
+
+ </body>
+
+</html>
